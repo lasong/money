@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/lasong/money'
   gem.licenses      = 'MIT'
 
-  gem.files         = Dir['{app,lib}/**/*'] + %w(LICENSE Rackfile README.md)
+  gem.files         = Dir['lib/**/*'] + %w(LICENSE Rackfile README.md)
   gem.test_files    = Dir['spec/**/*']
   gem.name          = 'money'
   gem.require_paths = ['lib']
