@@ -8,11 +8,11 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/lasong/money'
   gem.licenses      = 'MIT'
 
-  gem.files         = Dir['lib/**/*'] + %w(LICENSE Rackfile README.md)
-  gem.test_files    = Dir['spec/**/*']
+  gem.files         = `git ls-files`.split($RS)
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'money'
   gem.require_paths = ['lib']
-  gem.version       = Money::VERSION
+  gem.version       = MoneyGem::VERSION
 
   gem.add_development_dependency 'rspec', '~> 3.3'
   gem.add_development_dependency 'bundler', '~> 1.10'
