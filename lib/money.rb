@@ -1,9 +1,11 @@
 require 'money/configuration'
+require 'money/validation'
 
 class Money
   class Error < StandardError; end
 
   extend Configuration
+  extend Validation
 
   attr_accessor :amount, :currency
 
@@ -23,15 +25,5 @@ class Money
 
   def inspect
     [format('%.2f', amount), currency].join(' ')
-  end
-
-  class << self
-    private
-
-    def validate_rate_values(values)
-      fail Money::Error, 'Rates must be numeric' if values.any? do |value|
-                                                      !value.is_a?(Numeric)
-                                                    end
-    end
   end
 end
