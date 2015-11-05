@@ -7,7 +7,7 @@ class Money
     end
 
     def rates_by_currency
-      @rates_by_currency ||= {}
+      @rates_by_currency ||= Hash.new({})
     end
   end
 end
