@@ -36,7 +36,42 @@ class Money
     self
   end
 
+  def +(other)
+    Money.new(amount + other_converted(other).amount, currency)
+  end
+
+  def -(other)
+    Money.new(amount - other_converted(other).amount, currency)
+  end
+
+  def /(number)
+    Money.new(@amount / number.to_f, currency)
+  end
+
+  def *(number)
+    Money.new(@amount * number.to_f, currency)
+  end
+
+  def ==(other)
+    other_converted_object = other_converted(other)
+    (-0.01..0.01).include?((amount - other_converted_object.amount).round(2))
+  end
+
+  def >(other)
+    (amount - other_converted(other).amount).round(2) > 0.01
+  end
+
+  def <(other)
+    (amount - other_converted(other).amount).round(2) < -0.01
+  end
+
   private
+
+  def other_converted(other_object)
+    return other_object if currency == other_object.currency
+
+    other_object.clone.convert_to(currency)
+  end
 
   def currency_convertable?(other_currency)
     !Money.rates_by_currency[currency].empty? ||
