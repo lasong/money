@@ -27,6 +27,8 @@ class Money
   end
 
   def convert_to(other_currency)
+    return self if currency == other_currency
+
     fail(
       Error,
       'Configure conversion rates') unless currency_convertable?(other_currency)

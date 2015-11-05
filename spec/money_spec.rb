@@ -32,16 +32,25 @@ RSpec.describe Money do
   context '#convert_to' do
     before { Money.conversion_rates(base_currency, rates) }
 
-    it 'converts money from base currency to another currency' do
-      money = Money.new(40, 'EUR')
+    it 'returns same object if base currency equals another currency' do
+      money = Money.new(40, 'EUR').convert_to('EUR')
 
-      expect(money.convert_to('USD').inspect).to eq '43.60 USD'
+      expect(money.amount).to eq 40
+      expect(money.currency).to eq 'EUR'
+    end
+
+    it 'converts money from base currency to another currency' do
+      money = Money.new(40, 'EUR').convert_to('USD')
+
+      expect(money.amount).to be_within(0.01).of(43.60)
+      expect(money.currency).to eq 'USD'
     end
 
     it 'converts money from another currency to base currency' do
-      money = Money.new(40, 'USD')
+      money = Money.new(40, 'USD').convert_to('EUR')
 
-      expect(money.convert_to('EUR').inspect).to eq '36.70 EUR'
+      expect(money.amount).to be_within(0.01).of(36.70)
+      expect(money.currency).to eq 'EUR'
     end
 
     it 'raises error if currency does not exist in config' do
