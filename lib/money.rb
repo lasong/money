@@ -27,15 +27,13 @@ class Money
   end
 
   def convert_to(other_currency)
-    return self if currency == other_currency
+    return clone if currency == other_currency
 
     fail(
       Error,
       'Configure conversion rates') unless currency_convertable?(other_currency)
 
-    @amount *= amount_conversion_rate(other_currency)
-    @currency = other_currency
-    self
+    Money.new(amount * amount_conversion_rate(other_currency), other_currency)
   end
 
   def +(other)
