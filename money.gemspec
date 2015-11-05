@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'money'
   gem.require_paths = ['lib']
-  gem.version       = MoneyGem::VERSION
+  gem.version       = Money::VERSION
 
   gem.add_development_dependency 'rspec', '~> 3.3'
   gem.add_development_dependency 'bundler', '~> 1.10'
