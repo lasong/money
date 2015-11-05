@@ -23,13 +23,6 @@ RSpec.describe Money do
       expect(Money.rates_by_currency)
         .to eq('EUR' => { 'USD' => 1.11, 'XAF' => 500.1 })
     end
-
-    it 'raises Money::Error if rate values are not numeric' do
-      rates = { 'USD' => '1.09' }
-
-      expect { described_class.conversion_rates(base_currency, rates) }
-        .to raise_error(Money::Error)
-    end
   end
 
   context '#inspect' do
