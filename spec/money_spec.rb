@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe Money do
+  let(:base_currency) { 'EUR' }
+  let(:rates) { { 'USD' => 1.09 } }
+
   context '.conversion_rates' do
-    let(:base_currency) { 'EUR' }
-    after { Money.rates_by_currency = {} }
-
     it 'adds rates for currency if it does not exist' do
-      rates = { 'USD' => 1.09 }
-
       described_class.conversion_rates(base_currency, rates)
 
       expect(Money.rates_by_currency)
@@ -15,7 +13,7 @@ RSpec.describe Money do
     end
 
     it 'updates rates for currency if it exists' do
-      Money.rates_by_currency = { 'EUR' => { 'USD' => 1.09 } }
+      Money.rates_by_currency = { base_currency => rates }
       rates = { 'USD' => 1.11, 'XAF' => 500.1 }
 
       described_class.conversion_rates(base_currency, rates)
