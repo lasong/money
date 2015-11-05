@@ -7,7 +7,7 @@ class Money
   extend Configuration
   extend Validation
 
-  attr_accessor :amount, :currency
+  attr_reader :amount, :currency
 
   def self.conversion_rates(base_currency, rates)
     validate_rate_values(rates.values)
@@ -25,5 +25,20 @@ class Money
 
   def inspect
     [format('%.2f', amount), currency].join(' ')
+  end
+
+  def convert_to(other_currency)
+    currency_rates = Money.rates_by_currency[currency]
+
+    fail Error, 'Configure conversion rates' unless currency_rates
+
+    fail(
+      Error,
+      "Conversion rates for #{other_currency} does not exist"
+    ) if currency_rates[other_currency].nil?
+
+    @amount *= currency_rates[other_currency]
+    @currency = other_currency
+    self
   end
 end
