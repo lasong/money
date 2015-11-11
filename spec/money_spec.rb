@@ -117,6 +117,13 @@ RSpec.describe Money do
         expect(money.amount).to eq 42.0
         expect(money.currency).to eq 'EUR'
       end
+
+      it 'multiplies the money amount by a given number in reverse order' do
+        money = 3 * Money.new(21, 'EUR')
+
+        expect(money.amount).to eq 63.0
+        expect(money.currency).to eq 'EUR'
+      end
     end
   end
 

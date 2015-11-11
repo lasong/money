@@ -53,6 +53,10 @@ class Money
     Money.new(amount * number, currency)
   end
 
+  def coerce(number)
+    [self, number]
+  end
+
   def <=>(other)
     amount <=> other.convert_to(currency).amount
   end
