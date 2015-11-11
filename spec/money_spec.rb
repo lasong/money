@@ -137,7 +137,7 @@ RSpec.describe Money do
       end
 
       it 'is equal if monetary amounts agree up to the cents' do
-        expect(Money.new(20, 'EUR') == Money.new(20.01, 'EUR')).to be_truthy
+        expect(Money.new(20, 'EUR') == Money.new(20.00, 'EUR')).to be_truthy
       end
 
       it 'returns false for objects with different monetary amounts' do

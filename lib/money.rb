@@ -6,6 +6,7 @@ class Money
 
   extend Configuration
   extend Validation
+  include Comparable
 
   attr_reader :amount, :currency
 
@@ -18,7 +19,7 @@ class Money
   end
 
   def initialize(amount, currency)
-    @amount = amount
+    @amount = amount.to_r
     @currency = currency
   end
 
@@ -52,17 +53,8 @@ class Money
     Money.new(amount * number, currency)
   end
 
-  def ==(other)
-    converted_other = other.convert_to(currency)
-    (-0.01..0.01).include?((amount - converted_other.amount).round(2))
-  end
-
-  def >(other)
-    (amount - other.convert_to(currency).amount).round(2) > 0.01
-  end
-
-  def <(other)
-    (amount - other.convert_to(currency).amount).round(2) < -0.01
+  def <=>(other)
+    amount <=> other.convert_to(currency).amount
   end
 
   private
